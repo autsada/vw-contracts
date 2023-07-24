@@ -1,0 +1,22 @@
+{
+  "name": "vw-contract",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "hardhat:local": "hardhat node --hostname 0.0.0.0"
+  },
+  "keywords": [],
+  "author": "autsada thummatipagul",
+  "license": "ISC",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^3.0.0",
+    "@openzeppelin/hardhat-upgrades": "^2.0.1",
+    "hardhat": "^2.17.0"
+  },
+  "dependencies": {
+    "@chainlink/contracts": "^0.6.1",
+    "@openzeppelin/contracts-upgradeable": "^4.9.2",
+    "dotenv": "^16.3.1"
+  }
+}
