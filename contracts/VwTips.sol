@@ -26,6 +26,7 @@ contract VwTips is
     event Withdrawal(address to, uint256 amount, uint256 timestamp);
 
     event TipsTransferred(
+        string tipId,
         address from,
         address to,
         uint256 amount,
@@ -114,7 +115,11 @@ contract VwTips is
     /**
      * @inheritdoc IVwTips
      */
-    function tip(address to, uint256 qty) external payable override {
+    function tip(
+        string calldata tipId,
+        address to,
+        uint256 qty
+    ) external payable override {
         uint tips = msg.value;
 
         // Validate tips
@@ -128,7 +133,7 @@ contract VwTips is
         payable(to).transfer(net);
 
         // Emit event
-        emit TipsTransferred(msg.sender, to, tips, fee, block.timestamp);
+        emit TipsTransferred(tipId, msg.sender, to, tips, fee, block.timestamp);
     }
 
     /**

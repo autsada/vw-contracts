@@ -2,23 +2,22 @@ import { ethers, upgrades } from "hardhat"
 import path from "path"
 import fs from "fs/promises"
 
-const { NODE_ENV, PRICE_FEED_SEPOLIA, PRICE_FEED_MAINNET } = process.env
+import TipContract from "../abi/testnet/Tips.json"
 
-const priceFeedAddress =
-  NODE_ENV === "production" ? PRICE_FEED_MAINNET : PRICE_FEED_SEPOLIA
+const { NODE_ENV } = process.env
 
 async function main() {
-  const Tips = await ethers.getContractFactory("VwTips")
-  const tips = await upgrades.deployProxy(Tips, [priceFeedAddress])
+  const TipsV1 = await ethers.getContractFactory("VwTips")
+  const tipsV1 = await upgrades.upgradeProxy(TipContract.address, TipsV1)
 
-  await tips.waitForDeployment()
+  await tipsV1.waitForDeployment()
 
-  console.log("VWTips deployed to:", await tips.getAddress())
+  console.log("VWTips V1 deployed to:", await tipsV1.getAddress())
 
   // Pull the address and ABI out, since they will be used for interacting with the smart contract later.
   const data = {
-    address: await tips.getAddress(),
-    abi: JSON.parse(tips.interface.formatJson()),
+    address: await tipsV1.getAddress(),
+    abi: JSON.parse(tipsV1.interface.formatJson()),
   }
 
   await fs.writeFile(

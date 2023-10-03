@@ -15,8 +15,15 @@ interface IVwTips {
 
     /**
      * A function to send tips
+     * @param tipId a tip id in Vewwit database system
+     * @param to an address to send tips to
+     * @param qty tips in USDs
      */
-    function tip(address to, uint256 qty) external payable;
+    function tip(
+        string calldata tipId,
+        address to,
+        uint256 qty
+    ) external payable;
 
     function getPriceFeedAddress() external view returns (address);
 
